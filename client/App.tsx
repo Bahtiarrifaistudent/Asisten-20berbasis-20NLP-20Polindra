@@ -10,6 +10,13 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+// 🔑 basename DINAMIS
+// - localhost  → "/"
+// - GitHub Pages → "/Asisten-20berbasis-20NLP-20Polindra"
+const basename = import.meta.env.PROD
+  ? "/Asisten-20berbasis-20NLP-20Polindra"
+  : "/";
+
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
@@ -17,8 +24,7 @@ export default function App() {
         <Toaster />
         <Sonner />
 
-        {/* basename WAJIB untuk GitHub Pages */}
-        <BrowserRouter basename="/Asisten-20berbasis-20NLP-20Polindra">
+        <BrowserRouter basename={basename}>
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="*" element={<NotFound />} />
