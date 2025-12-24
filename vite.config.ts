@@ -3,10 +3,8 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { createServer } from "./server";
 
-// https://vitejs.dev/config/
 export default defineConfig(({ command }) => ({
-  // 🔴 PENTING untuk GitHub Pages
-  // ganti sesuai nama repo kamu
+  // WAJIB untuk GitHub Pages
   base:
     command === "build"
       ? "/Asisten-20berbasis-20NLP-20Polindra/"
@@ -38,7 +36,7 @@ export default defineConfig(({ command }) => ({
 
   plugins: [
     react(),
-    expressPlugin(), // hanya aktif saat dev
+    expressPlugin(), // HANYA aktif saat dev
   ],
 
   resolve: {
@@ -49,15 +47,10 @@ export default defineConfig(({ command }) => ({
   },
 }));
 
-/**
- * Plugin Express
- * Hanya berjalan saat `vite dev`
- * Tidak ikut ke GitHub Pages (karena Pages hanya static)
- */
 function expressPlugin(): Plugin {
   return {
     name: "express-plugin",
-    apply: "serve", // ⬅️ hanya saat dev
+    apply: "serve", // ⬅️ tidak ikut build
     configureServer(viteServer) {
       const app = createServer();
       viteServer.middlewares.use(app);
